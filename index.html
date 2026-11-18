@@ -1,159 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SegreTrack | Smart Waste Management</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123d2b"><title>SegreTrack | Smart Waste Management</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-    <div class="logo">♻️ SegreTrack</div>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#guide">Waste Guide</a>
-        <a href="#report">Report Waste</a>
-        <a href="#dashboard">Dashboard</a>
-    </nav>
-</header>
-
-<section id="home" class="hero">
-    <div class="hero-content">
-        <p class="tagline">🌱 SMART WARD • CLEAN CITY</p>
-        <h1>Segregate Today,<br><span>Save Tomorrow.</span></h1>
-        <p>
-            A smart platform to improve household waste
-            segregation and build a cleaner environment.
-        </p>
-        <a href="#report" class="btn">Report Waste ♻️</a>
-        <a href="#guide" class="btn outline">Explore Guide</a>
-    </div>
-    <div class="hero-art">🌍</div>
-</section>
-
-<section id="guide" class="section">
-    <h2>Waste Segregation Guide</h2>
-    <p class="subtitle">Know your waste, choose the right bin.</p>
-
-    <div class="cards">
-        <div class="card">
-            <div class="emoji">🍃</div>
-            <h3>Wet Waste</h3>
-            <p>Vegetable peels, fruit waste and food leftovers.</p>
-            <b>Green Bin</b>
-        </div>
-
-        <div class="card">
-            <div class="emoji">📦</div>
-            <h3>Dry Waste</h3>
-            <p>Paper, cardboard, plastic bottles and packaging.</p>
-            <b>Blue Bin</b>
-        </div>
-
-        <div class="card">
-            <div class="emoji">🔋</div>
-            <h3>E-Waste</h3>
-            <p>Old batteries, wires and electronic devices.</p>
-            <b>Special Collection</b>
-        </div>
-    </div>
-</section>
-
-<section id="report" class="section">
-    <h2>Report Waste</h2>
-    <p class="subtitle">Help keep your neighbourhood clean.</p>
-
-    <form id="wasteForm" class="report-form">
-        <label>Household / Ward Name</label>
-        <input id="household" type="text" placeholder="Enter household or ward" required>
-
-        <label>Location</label>
-        <input id="location" type="text" placeholder="Enter location" required>
-
-        <label>Waste Type</label>
-        <select id="wasteType" required>
-            <option value="">Select waste type</option>
-            <option>Wet Waste</option>
-            <option>Dry Waste</option>
-            <option>Mixed Waste</option>
-            <option>E-Waste</option>
-        </select>
-
-        <label>Description</label>
-        <textarea id="description" placeholder="Describe the waste..." required></textarea>
-
-        <button type="submit" class="btn">Submit Report</button>
-    </form>
-    <p id="message"></p>
-</section>
-<!-- QR Code Demo -->
-<section id="qr-demo" class="section">
-    <h2>Household QR Tracking</h2>
-    <p class="subtitle">
-        Scan household QR and update waste segregation status.
-    </p>
-
-    <div class="card">
-        <div class="emoji">📱</div>
-        <h3>House 101</h3>
-
-        <div id="qrcode"
-             style="display:flex;justify-content:center;margin:20px;">
-        </div>
-
-        <p>Household ID: H101</p>
-
-        <button class="btn" onclick="markStatus('Segregated')">
-            ✅ Segregated
-        </button>
-
-        <button class="btn" onclick="markStatus('Mixed Waste')">
-            ❌ Mixed Waste
-        </button>
-
-        <h3 id="qrStatus" style="margin-top:20px;">
-            Status: Not Updated
-        </h3>
-    </div>
-</section>
-<section id="dashboard" class="section">
-    <h2>Admin Dashboard</h2>
-    <p class="subtitle">Sample report statistics</p>
-
-    <div class="cards">
-        <div class="card">
-            <div class="emoji">📋</div>
-            <h3>Total Reports</h3>
-            <h2 id="totalReports">0</h2>
-        </div>
-        <div class="card">
-            <div class="emoji">🟢</div>
-            <h3>Segregated</h3>
-            <h2 id="segregated">0</h2>
-        </div>
-        <div class="card">
-            <div class="emoji">🔴</div>
-            <h3>Mixed Waste</h3>
-            <h2 id="mixed">0</h2>
-        </div>
-        <div class="card">
-    <div class="emoji">📱</div>
-    <h3>Household H101 Status</h3>
-    <h2 id="householdStatus">Not Updated</h2>
-</div>
-    </div>
-
-    <h3>Recent Reports</h3>
-    <div id="reportList"></div>
-</section>
-
-<footer>
-    <h3>♻️ SegreTrack</h3>
-    <p>Clean habits. Smart tracking. Greener future.</p>
-    <p>Community Engagement Project</p>
-</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="script.js"></script>
-</body>
-</html>
+<header class="topbar"><a class="brand" href="#home"><span class="brand-mark">♻</span> SegreTrack</a><nav>
+  <a href="#home">Home</a><a href="#guide">Waste Guide</a><a href="#report">Report</a><a href="#dashboard">Dashboard</a><a href="#complaint">Complaint</a><a href="#quiz">Quiz</a><a href="#leaderboard">Leaderboard</a>
+</nav></header>
+<main>
+<section id="home" class="hero"><div class="hero-copy"><span class="eyebrow">🌱 SMART WARD · CLEAN CITY</span><h1>Segregate today.<br><span>Save tomorrow.</span></h1><p>A simple community platform to encourage responsible waste segregation, track household efforts and build a cleaner neighbourhood.</p><div class="hero-actions"><a class="btn" href="#report">Submit a report <span>→</span></a><a class="btn btn-light" href="#guide">Explore waste guide</a></div><div class="hero-note"><span class="pulse"></span> Small actions. Cleaner communities.</div></div><div class="hero-visual"><div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div><div class="earth">🌍</div><div class="float-card float-top">🌿 <span><b>Think green</b><small>Every day counts</small></span></div><div class="float-card float-bottom">♻️ <span><b>Sort it right</b><small>Wet · Dry · E-waste</small></span></div></div></section>
+<section id="guide" class="section"><div class="section-heading"><span class="eyebrow">KNOW BEFORE YOU THROW</span><h2>Waste segregation guide</h2><p>Choose the right bin and make recycling easier.</p></div><div class="grid three"><article class="info-card"><div class="icon-tile green">🍃</div><h3>Wet waste</h3><p>Vegetable peels, fruit waste, leftover food and garden waste.</p><span class="bin-label green-label">GREEN BIN</span></article><article class="info-card"><div class="icon-tile blue">📦</div><h3>Dry waste</h3><p>Clean paper, cardboard, plastic bottles, metal and packaging.</p><span class="bin-label blue-label">BLUE BIN</span></article><article class="info-card"><div class="icon-tile amber">🔋</div><h3>E-waste</h3><p>Old batteries, wires and electronic devices. Keep separate.</p><span class="bin-label amber-label">SPECIAL COLLECTION</span></article></div></section>
+<section id="report" class="section soft-section"><div class="section-heading"><span class="eyebrow">MAKE YOUR AREA BETTER</span><h2>Report waste</h2><p>Share a waste segregation update for your household or ward.</p></div><form id="wasteForm" class="form-card"><div class="form-grid"><label>Household / ward name<input id="household" type="text" placeholder="e.g. House 101" required maxlength="60"></label><label>Location<input id="location" type="text" placeholder="Area / street name" required maxlength="100"></label><label class="full">Waste type<select id="wasteType" required><option value="">Select waste type</option><option>Wet Waste</option><option>Dry Waste</option><option>Mixed Waste</option><option>E-Waste</option></select></label><label class="full">Description<textarea id="description" placeholder="Add a short description..." required maxlength="500"></textarea></label></div><button class="btn" type="submit">Submit report →</button><p id="message" class="form-message" role="status"></p></form></section>
+<section id="qr-demo" class="section"><div class="section-heading"><span class="eyebrow">HOUSEHOLD TRACKING</span><h2>QR household demo</h2><p>Demo household H101 — update its segregation status.</p></div><div class="qr-card"><div id="qrcode" class="qr-code"><span>H101</span></div><div class="qr-info"><span class="eyebrow">HOUSEHOLD ID · H101</span><h3>Household status</h3><p id="qrStatus" class="status-pill">Not Updated</p><div class="button-row"><button class="btn" type="button" data-status="Segregated">✓ Segregated</button><button class="btn btn-danger" type="button" data-status="Mixed Waste">Mixed waste</button></div><small>This is a demonstration tracker stored in this browser.</small></div></div></section>
+<section id="dashboard" class="section soft-section"><div class="section-heading"><span class="eyebrow">COMMUNITY SNAPSHOT</span><h2>Admin dashboard</h2><p>Live summary of reports saved in this browser.</p></div><div class="stats-grid"><article class="stat-card"><span>📋</span><p>Total reports</p><strong id="totalReports">0</strong></article><article class="stat-card"><span>🟢</span><p>Segregated reports</p><strong id="segregated">0</strong></article><article class="stat-card"><span>🔴</span><p>Mixed waste reports</p><strong id="mixed">0</strong></article><article class="stat-card"><span>📱</span><p>H101 status</p><strong id="householdStatus">Not Updated</strong></article></div><div class="dashboard-panel"><div class="panel-heading"><div><h3>Recent reports</h3><p>Latest community submissions</p></div><span class="live-label">● LOCAL DATA</span></div><div id="reportList" class="report-list"><p class="empty-state">No reports yet. Submit your first report above.</p></div></div></section>
+<section id="complaint" class="section"><div class="section-heading"><span class="eyebrow">HELP KEEP IT CLEAN</span><h2>Raise a complaint</h2><p>Report overflowing bins, missed collection or littering.</p></div><form id="complaintForm" class="form-card"><div class="form-grid"><label>Your name<input id="complaintName" required maxlength="60" placeholder="Enter your name"></label><label>Location<input id="complaintLocation" required maxlength="100" placeholder="Where is the issue?"></label><label class="full">Complaint type<select id="complaintType" required><option value="">Choose an issue</option><option>Missed waste collection</option><option>Overflowing dustbin</option><option>Open dumping / littering</option><option>Other</option></select></label><label class="full">Details<textarea id="complaintDetails" required maxlength="500" placeholder="Describe the issue..."></textarea></label></div><button class="btn" type="submit">Send complaint →</button><p id="complaintMessage" class="form-message" role="status"></p></form><div class="dashboard-panel compact-panel"><div class="panel-heading"><div><h3>Submitted complaints</h3><p>Saved locally on this device</p></div></div><div id="complaintList" class="report-list"><p class="empty-state">No complaints submitted yet.</p></div></div></section>
+<section id="quiz" class="section soft-section"><div class="section-heading"><span class="eyebrow">LEARN · PLAY · IMPROVE</span><h2>Waste smart quiz</h2><p>Test your waste segregation knowledge and earn points.</p></div><div class="quiz-card"><div class="quiz-top"><span id="quizProgress">QUESTION 1 OF 5</span><span id="quizScore">0 points</span></div><div class="progress-track"><div id="quizProgressBar"></div></div><h3 id="quizQuestion">Loading question...</h3><div id="quizOptions" class="quiz-options"></div><p id="quizFeedback" class="quiz-feedback" role="status"></p><button id="nextQuestion" class="btn" type="button" disabled>Next question →</button></div></section>
+<section id="leaderboard" class="section"><div class="section-heading"><span class="eyebrow">CELEBRATE GOOD HABITS</span><h2>Community leaderboard</h2><p>Points earned by completing the quiz on this device.</p></div><div class="dashboard-panel leaderboard-panel"><div class="panel-heading"><div><h3>Top participants</h3><p>Local demo leaderboard</p></div><span class="trophy">🏆</span></div><div id="leaderboardList"></div><form id="playerForm" class="player-form"><label for="playerName">Save your quiz score</label><input id="playerName" placeholder="Enter participant name" maxlength="40" required><button class="btn" type="submit">Add my score</button><p id="playerMessage" class="form-message" role="status"></p></form></div></section>
+</main><footer><a class="brand footer-brand" href="#home">♻ SegreTrack</a><p>Clean habits. Smart tracking. Greener future.</p><small>Community Engagement Project · Educational demo</small></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="script.js"></script>
+</body></html>

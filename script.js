@@ -1,92 +1,19 @@
-// Get saved reports
-function getReports() {
-    return JSON.parse(localStorage.getItem("segreReports")) || [];
-}
-
-// Save reports
-function saveReports(reports) {
-    localStorage.setItem("segreReports", JSON.stringify(reports));
-}
-
-// Submit waste report
-document.getElementById("wasteForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const household = document.getElementById("household").value;
-    const location = document.getElementById("location").value;
-    const wasteType = document.getElementById("wasteType").value;
-    const description = document.getElementById("description").value;
-
-    const report = {
-        household: household,
-        location: location,
-        wasteType: wasteType,
-        description: description,
-        date: new Date().toLocaleString()
-    };
-
-    let reports = getReports();
-    reports.push(report);
-    saveReports(reports);
-
-    document.getElementById("message").innerText =
-        "Report submitted successfully! Thank you.";
-
-    this.reset();
-    updateDashboard();
-});
-
-// Update dashboard
-function updateDashboard() {
-    const reports = getReports();
-
-    const segregated = reports.filter(r =>
-        r.wasteType === "Wet Waste" ||
-        r.wasteType === "Dry Waste"
-    ).length;
-
-    const mixed = reports.filter(r =>
-        r.wasteType === "Mixed Waste"
-    ).length;
-
-    document.getElementById("totalReports").innerText = reports.length;
-    document.getElementById("segregated").innerText = segregated;
-    document.getElementById("mixed").innerText = mixed;
-
-    const reportList = document.getElementById("reportList");
-
-    reportList.innerHTML = "";
-
-    reports.slice().reverse().forEach(report => {
-        reportList.innerHTML += `
-            <div class="report-item">
-                <h3>${report.household}</h3>
-                <p><b>Location:</b> ${report.location}</p>
-                <p><b>Waste:</b> ${report.wasteType}</p>
-                <p><b>Description:</b> ${report.description}</p>
-                <small>${report.date}</small>
-            </div>
-        `;
-    });
-}
-
-// Load dashboard when page opens
-updateDashboard();// Generate Household QR Code
-const qrBox = document.getElementById("qrcode");
-
-if (qrBox && typeof QRCode !== "undefined") {
-    new QRCode(qrBox, {
-        text: "Household ID: H101",
-        width: 150,
-        height: 150
-    });
-}
-
-// Update household status
-function markStatus(status) {
-    const householdStatus =
-    localStorage.getItem("H101_status") || "Not Updated";
-
-document.getElementById("householdStatus").innerText =
-    householdStatus;
-}
+const STORE={reports:'segreReports',complaints:'segreComplaints',status:'H101_status',scores:'segreScores'};
+const read=(key)=>{try{return JSON.parse(localStorage.getItem(key))||[]}catch{return []}};
+const write=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
+const safe=(value)=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+function updateDashboard(){const reports=read(STORE.reports),status=localStorage.getItem(STORE.status)||'Not Updated';const segregated=reports.filter(r=>['Wet Waste','Dry Waste','E-Waste'].includes(r.wasteType)).length;const mixed=reports.filter(r=>r.wasteType==='Mixed Waste').length;document.getElementById('totalReports').textContent=reports.length;document.getElementById('segregated').textContent=segregated;document.getElementById('mixed').textContent=mixed;document.getElementById('householdStatus').textContent=status;const list=document.getElementById('reportList');list.innerHTML=reports.length?reports.slice().reverse().map(r=>`<article class="report-item"><div><h4>${safe(r.household)} · ${safe(r.location)}</h4><p>${safe(r.description)}</p><p>${safe(r.date)}</p></div><span class="report-tag">${safe(r.wasteType)}</span></article>`).join(''):'<p class="empty-state">No reports yet. Submit your first report above.</p>';}
+document.getElementById('wasteForm').addEventListener('submit',event=>{event.preventDefault();const report={household:document.getElementById('household').value.trim(),location:document.getElementById('location').value.trim(),wasteType:document.getElementById('wasteType').value,description:document.getElementById('description').value.trim(),date:new Date().toLocaleString()};const reports=read(STORE.reports);reports.push(report);write(STORE.reports,reports);document.getElementById('message').textContent='✓ Report submitted successfully. Thank you!';event.target.reset();updateDashboard();});
+function updateStatus(status){localStorage.setItem(STORE.status,status);const el=document.getElementById('qrStatus');el.textContent=status;el.className='status-pill '+(status==='Segregated'?'good':'bad');updateDashboard();}
+document.querySelectorAll('[data-status]').forEach(button=>button.addEventListener('click',()=>updateStatus(button.dataset.status)));
+function renderStatus(){const status=localStorage.getItem(STORE.status)||'Not Updated';const el=document.getElementById('qrStatus');el.textContent=status;el.className='status-pill '+(status==='Segregated'?'good':status==='Mixed Waste'?'bad':'');}
+if(typeof QRCode!=='undefined'){new QRCode(document.getElementById('qrcode'),{text:'Household ID: H101',width:145,height:145,colorDark:'#123d2b',colorLight:'#f5faf6'});}
+document.getElementById('complaintForm').addEventListener('submit',event=>{event.preventDefault();const item={name:document.getElementById('complaintName').value.trim(),location:document.getElementById('complaintLocation').value.trim(),type:document.getElementById('complaintType').value,details:document.getElementById('complaintDetails').value.trim(),date:new Date().toLocaleString()};const complaints=read(STORE.complaints);complaints.push(item);write(STORE.complaints,complaints);document.getElementById('complaintMessage').textContent='✓ Complaint saved on this device.';event.target.reset();renderComplaints();});
+function renderComplaints(){const items=read(STORE.complaints);document.getElementById('complaintList').innerHTML=items.length?items.slice().reverse().map(c=>`<article class="complaint-item"><div><h4>${safe(c.type)} · ${safe(c.location)}</h4><p>${safe(c.details)}</p><p>By ${safe(c.name)} · ${safe(c.date)}</p></div><span class="report-tag">Received</span></article>`).join(''):'<p class="empty-state">No complaints submitted yet.</p>';}
+const questions=[{q:'Where should vegetable peels be disposed of?',a:['Green bin','Blue bin','E-waste collection'],correct:0,why:'Food scraps and vegetable peels are wet waste.'},{q:'Which item is usually dry waste?',a:['Leftover rice','Used tea leaves','Clean cardboard'],correct:2,why:'Clean cardboard can be collected as dry waste.'},{q:'Where should old batteries go?',a:['Wet waste bin','Separate e-waste collection','With food scraps'],correct:1,why:'Batteries need separate, safe collection.'},{q:'Why should waste be segregated?',a:['To make recycling easier','To mix all waste','To increase litter'],correct:0,why:'Segregation helps appropriate treatment and recycling.'},{q:'What should you do before recycling a plastic bottle?',a:['Fill it with food','Keep it dirty','Empty and rinse it if possible'],correct:2,why:'Clean, empty recyclables are easier to process.'}];let qIndex=0,score=0,answered=false;
+function renderQuestion(){const q=questions[qIndex];answered=false;document.getElementById('quizProgress').textContent=`QUESTION ${qIndex+1} OF ${questions.length}`;document.getElementById('quizScore').textContent=`${score} points`;document.getElementById('quizProgressBar').style.width=`${(qIndex+1)/questions.length*100}%`;document.getElementById('quizQuestion').textContent=q.q;document.getElementById('quizFeedback').textContent='';document.getElementById('nextQuestion').disabled=true;document.getElementById('nextQuestion').textContent=qIndex===questions.length-1?'Finish quiz':'Next question →';document.getElementById('quizOptions').innerHTML=q.a.map((a,i)=>`<button type="button" class="quiz-option" data-answer="${i}">${String.fromCharCode(65+i)}. ${safe(a)}</button>`).join('');document.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>chooseAnswer(Number(btn.dataset.answer))));}
+function chooseAnswer(index){if(answered)return;answered=true;const q=questions[qIndex],correct=index===q.correct;if(correct)score+=10;document.querySelectorAll('[data-answer]').forEach((btn,i)=>{btn.disabled=true;if(i===q.correct)btn.classList.add('correct');else if(i===index)btn.classList.add('wrong');});document.getElementById('quizFeedback').textContent=(correct?'Correct! +10 points. ':'Not quite. ')+q.why;document.getElementById('quizScore').textContent=`${score} points`;document.getElementById('nextQuestion').disabled=false;}
+document.getElementById('nextQuestion').addEventListener('click',()=>{if(!answered)return;if(qIndex<questions.length-1){qIndex++;renderQuestion();}else{document.getElementById('quizQuestion').textContent=`Quiz completed! You scored ${score} out of 50.`;document.getElementById('quizOptions').innerHTML='<p class="empty-state">Add your name below to put your score on the leaderboard.</p>';document.getElementById('quizFeedback').textContent='Great effort — keep learning smart waste habits!';document.getElementById('nextQuestion').disabled=true;document.getElementById('nextQuestion').textContent='Completed';}});
+function renderLeaderboard(){const scores=read(STORE.scores).sort((a,b)=>b.score-a.score).slice(0,10);document.getElementById('leaderboardList').innerHTML=scores.length?scores.map((p,i)=>`<div class="leader-row"><span class="rank">${i+1}</span><span class="leader-name">${safe(p.name)}</span><span class="leader-points">${p.score} pts</span></div>`).join(''):'<p class="empty-state">No scores yet. Complete the quiz and add your score!</p>';}
+document.getElementById('playerForm').addEventListener('submit',event=>{event.preventDefault();if(score===0){document.getElementById('playerMessage').textContent='Complete the quiz first to save your score.';return;}const name=document.getElementById('playerName').value.trim();const scores=read(STORE.scores);scores.push({name,score,date:new Date().toLocaleDateString()});write(STORE.scores,scores);document.getElementById('playerMessage').textContent='✓ Your score has been added!';event.target.reset();renderLeaderboard();});
+updateDashboard();renderStatus();renderComplaints();renderQuestion();renderLeaderboard();
