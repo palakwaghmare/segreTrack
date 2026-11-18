@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SegreTrack | Smart Waste Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">♻️ SegreTrack</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#guide">Waste Guide</a>
+        <a href="#report">Report Waste</a>
+        <a href="#dashboard">Dashboard</a>
+    </nav>
+</header>
+
+<section id="home" class="hero">
+    <div class="hero-content">
+        <p class="tagline">🌱 SMART WARD • CLEAN CITY</p>
+        <h1>Segregate Today,<br><span>Save Tomorrow.</span></h1>
+        <p>
+            A smart platform to improve household waste
+            segregation and build a cleaner environment.
+        </p>
+        <a href="#report" class="btn">Report Waste ♻️</a>
+        <a href="#guide" class="btn outline">Explore Guide</a>
+    </div>
+    <div class="hero-art">🌍</div>
+</section>
+
+<section id="guide" class="section">
+    <h2>Waste Segregation Guide</h2>
+    <p class="subtitle">Know your waste, choose the right bin.</p>
+
+    <div class="cards">
+        <div class="card">
+            <div class="emoji">🍃</div>
+            <h3>Wet Waste</h3>
+            <p>Vegetable peels, fruit waste and food leftovers.</p>
+            <b>Green Bin</b>
+        </div>
+
+        <div class="card">
+            <div class="emoji">📦</div>
+            <h3>Dry Waste</h3>
+            <p>Paper, cardboard, plastic bottles and packaging.</p>
+            <b>Blue Bin</b>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🔋</div>
+            <h3>E-Waste</h3>
+            <p>Old batteries, wires and electronic devices.</p>
+            <b>Special Collection</b>
+        </div>
+    </div>
+</section>
+
+<section id="report" class="section">
+    <h2>Report Waste</h2>
+    <p class="subtitle">Help keep your neighbourhood clean.</p>
+
+    <form id="wasteForm" class="report-form">
+        <label>Household / Ward Name</label>
+        <input id="household" type="text" placeholder="Enter household or ward" required>
+
+        <label>Location</label>
+        <input id="location" type="text" placeholder="Enter location" required>
+
+        <label>Waste Type</label>
+        <select id="wasteType" required>
+            <option value="">Select waste type</option>
+            <option>Wet Waste</option>
+            <option>Dry Waste</option>
+            <option>Mixed Waste</option>
+            <option>E-Waste</option>
+        </select>
+
+        <label>Description</label>
+        <textarea id="description" placeholder="Describe the waste..." required></textarea>
+
+        <button type="submit" class="btn">Submit Report</button>
+    </form>
+    <p id="message"></p>
+</section>
+<!-- QR Code Demo -->
+<section id="qr-demo" class="section">
+    <h2>Household QR Tracking</h2>
+    <p class="subtitle">
+        Scan household QR and update waste segregation status.
+    </p>
+
+    <div class="card">
+        <div class="emoji">📱</div>
+        <h3>House 101</h3>
+
+        <div id="qrcode"
+             style="display:flex;justify-content:center;margin:20px;">
+        </div>
+
+        <p>Household ID: H101</p>
+
+        <button class="btn" onclick="markStatus('Segregated')">
+            ✅ Segregated
+        </button>
+
+        <button class="btn" onclick="markStatus('Mixed Waste')">
+            ❌ Mixed Waste
+        </button>
+
+        <h3 id="qrStatus" style="margin-top:20px;">
+            Status: Not Updated
+        </h3>
+    </div>
+</section>
+<section id="dashboard" class="section">
+    <h2>Admin Dashboard</h2>
+    <p class="subtitle">Sample report statistics</p>
+
+    <div class="cards">
+        <div class="card">
+            <div class="emoji">📋</div>
+            <h3>Total Reports</h3>
+            <h2 id="totalReports">0</h2>
+        </div>
+        <div class="card">
+            <div class="emoji">🟢</div>
+            <h3>Segregated</h3>
+            <h2 id="segregated">0</h2>
+        </div>
+        <div class="card">
+            <div class="emoji">🔴</div>
+            <h3>Mixed Waste</h3>
+            <h2 id="mixed">0</h2>
+        </div>
+        <div class="card">
+    <div class="emoji">📱</div>
+    <h3>Household H101 Status</h3>
+    <h2 id="householdStatus">Not Updated</h2>
+</div>
+    </div>
+
+    <h3>Recent Reports</h3>
+    <div id="reportList"></div>
+</section>
+
+<footer>
+    <h3>♻️ SegreTrack</h3>
+    <p>Clean habits. Smart tracking. Greener future.</p>
+    <p>Community Engagement Project</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
